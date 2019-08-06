@@ -256,10 +256,10 @@ delay(10);
 }
 
 boolean checkDistance(){  // Check if it's time to open a trashBin
-  int i = NUMPIXELS;
+  int i = 0;
   boolean toReturn = false;
   int recentDistance = GetAverageDistance();
-  while (i>=0 && recentDistance<distanceToOpen){
+  while (i<NUMPIXELS && recentDistance<distanceToOpen){
      
      Serial.print("DistToOpen=");
      Serial.print(distanceToOpen);
@@ -269,11 +269,11 @@ boolean checkDistance(){  // Check if it's time to open a trashBin
      pixels.show(); // This sends the updated pixel color to the hardware.
      delay (40);
      recentDistance = GetAverageDistance();
-     if (i==0){
+     if (i==NUMPIXELS-1){
        toReturn = true;
        break;
        }
-     i--;
+     i++;
   }
   for (int j=0; j<NUMPIXELS; j++){
      pixels.setPixelColor(j, pixels.Color(0,0,0));
